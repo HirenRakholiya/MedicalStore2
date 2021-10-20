@@ -118,7 +118,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TypeController.cs" />
     <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2239,6 +2241,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Views\Category\" />
+    <Folder Include="Views\Type\" />
     <Folder Include="Views\Unit\" />
   </ItemGroup>
   <ItemGroup>
