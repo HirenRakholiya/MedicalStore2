@@ -99,23 +99,43 @@ namespace MedicalStore.Controllers
         // GET: Category/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+           
+            CategoryModel categoryModel = new CategoryModel();
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                string query = "Select * from Category where CategoryId=@CategoryId";
+                SqlDataAdapter adp = new SqlDataAdapter(query, con);
+                adp.SelectCommand.Parameters.AddWithValue("@CategoryId", id);
+                adp.Fill(dt);
+            }
+            if (dt.Rows.Count == 1)
+            {
+                categoryModel.CategoryId = Convert.ToInt32(dt.Rows[0][0].ToString());
+                categoryModel.CategoryName = dt.Rows[0][1].ToString();
+             
+                return View(categoryModel);
+
+            }
+            else
+                return RedirectToAction("Index");
         }
 
         // POST: Category/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                // TODO: Add delete logic here
+                con.Open();
+                string query = "Delete From Category  where CategoryId=@CategoryId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@CategoryId", id);
 
-                return RedirectToAction("Index");
+                cmd.ExecuteNonQuery();
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
     }
 }
