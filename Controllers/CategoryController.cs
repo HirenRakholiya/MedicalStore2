@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
-
+using MedicalStore.Models;
 
 namespace MedicalStore.Controllers
 {
@@ -28,53 +28,72 @@ namespace MedicalStore.Controllers
         }
 
         // GET: Category/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+       
 
         // GET: Category/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new CategoryModel());
         }
 
         // POST: Category/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CategoryModel categoryModel)
         {
-            try
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                con.Open();
+                string query = "Insert into Category Values(@CategoryName)";
+                SqlCommand cmd = new SqlCommand(query, con);
+                // cmd.Parameters.AddWithValue("@Id", manufactureModel.Id);
+                cmd.Parameters.AddWithValue("@CategoryName", categoryModel.CategoryName);
+              
+                cmd.ExecuteNonQuery();
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
         // GET: Category/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+           
+            CategoryModel categoryModel = new CategoryModel();
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                string query = "Select * from Category where CategoryId=@CategoryId";
+                SqlDataAdapter adp = new SqlDataAdapter(query, con);
+                adp.SelectCommand.Parameters.AddWithValue("@CategoryId", id);
+                adp.Fill(dt);
+            }
+            if (dt.Rows.Count == 1)
+            {
+                categoryModel.CategoryId = Convert.ToInt32(dt.Rows[0][0].ToString());
+                categoryModel.CategoryName = dt.Rows[0][1].ToString();
+            
+                return View(categoryModel);
+
+            }
+            else
+                return RedirectToAction("Index");
         }
 
         // POST: Category/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(CategoryModel categoryModel)
         {
-            try
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                con.Open();
+                string query = "Update Category set CategoryName=@CategoryName where CategoryId=@CategoryId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@CategoryId", categoryModel.CategoryId);
+                cmd.Parameters.AddWithValue("@CategoryName",categoryModel.CategoryName);
+                
+                cmd.ExecuteNonQuery();
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
         // GET: Category/Delete/5
