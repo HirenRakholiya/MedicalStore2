@@ -3,15 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data;
+using System.Data.SqlClient;
+
 
 namespace MedicalStore.Controllers
 {
     public class CategoryController : Controller
     {
+        string connectionString = @"Data Source=.;Initial Catalog=PharmaWholeSale;Integrated Security=True";
         // GET: Category
         public ActionResult Index()
         {
-            return View();
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                string query = "Select * from Category";
+                SqlDataAdapter adp = new SqlDataAdapter(query, con);
+                adp.Fill(dt);
+            }
+            return View(dt);
+           
         }
 
         // GET: Category/Details/5
