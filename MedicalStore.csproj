@@ -2246,6 +2246,8 @@
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Type\Index.cshtml" />
     <Content Include="Views\Type\Create.cshtml" />
+    <Content Include="Views\Type\Edit.cshtml" />
+    <Content Include="Views\Type\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Unit\" />

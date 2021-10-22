@@ -55,45 +55,84 @@ namespace MedicalStore.Controllers
         // GET: Type/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+                TypeModel typeModel = new TypeModel();
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                string query = "Select * from   Type where  TypeId=@TypeId";
+                SqlDataAdapter adp = new SqlDataAdapter(query, con);
+                adp.SelectCommand.Parameters.AddWithValue("@TypeId", id);
+                adp.Fill(dt);
+            }
+            if (dt.Rows.Count == 1)
+            {
+                typeModel.Typeid = Convert.ToInt32(dt.Rows[0][0].ToString());
+                typeModel.TypeName = dt.Rows[0][1].ToString();
+
+                return View(typeModel);
+
+            }
+            else
+                return RedirectToAction("Index");
         }
 
         // POST: Type/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(TypeModel typeModel)
         {
-            try
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                // TODO: Add update logic here
+                con.Open();
+                string query = "Update Type set TypeName=@TypeName where TypeId=@TypeId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@TypeId", typeModel.Typeid);
+                cmd.Parameters.AddWithValue("@TypeName", typeModel.TypeName);
 
-                return RedirectToAction("Index");
+                cmd.ExecuteNonQuery();
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
         // GET: Type/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            TypeModel typeModel = new TypeModel();
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                string query = "Select * from Type where TypeId=@TypeId";
+                SqlDataAdapter adp = new SqlDataAdapter(query, con);
+                adp.SelectCommand.Parameters.AddWithValue("@TypeId", id);
+                adp.Fill(dt);
+            }
+            if (dt.Rows.Count == 1)
+            {
+                typeModel.Typeid = Convert.ToInt32(dt.Rows[0][0].ToString());
+                typeModel.TypeName = dt.Rows[0][1].ToString();
+
+                return View(typeModel);
+
+            }
+            else
+                return RedirectToAction("Index");
         }
 
         // POST: Type/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                // TODO: Add delete logic here
+                con.Open();
+                string query = "Delete From Type  where TypeId=@TypeId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@TypeId", id);
 
-                return RedirectToAction("Index");
+                cmd.ExecuteNonQuery();
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
     }
 }
