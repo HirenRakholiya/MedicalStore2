@@ -2247,8 +2247,6 @@
     <Content Include="Views\Type\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Views\ab\" />
     <Folder Include="Views\Unit\" />
   </ItemGroup>
   <ItemGroup>
