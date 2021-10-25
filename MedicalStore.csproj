@@ -130,13 +130,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Database2.mdf" />
-    <Content Include="App_Data\Database2_log.ldf">
-      <DependentUpon>Database2.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\Database\Database1.mdf" />
     <Content Include="App_Data\Database\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\Database\Database2.mdf" />
+    <Content Include="App_Data\Database\Database2_log.ldf">
+      <DependentUpon>Database2.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
