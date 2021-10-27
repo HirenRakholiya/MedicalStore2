@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using MedicalStore.Models;
 
+
 namespace MedicalStore.Controllers
 {
     public class CategoryController : Controller
