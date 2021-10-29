@@ -59,45 +59,102 @@ namespace MedicalStore.Controllers
         // GET: Manufacture/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ManufactureModel manufactureModel = new ManufactureModel();
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                string query = "Select * from Manufacture where ManufactureId=@ManufactureId";
+                SqlDataAdapter adp = new SqlDataAdapter(query, con);
+                adp.SelectCommand.Parameters.AddWithValue("@ManufactureId", id);
+                adp.Fill(dt);
+            }
+            if (dt.Rows.Count == 1)
+            {
+                manufactureModel.ManufactureId = Convert.ToInt32(dt.Rows[0][0].ToString());
+                manufactureModel.ManufactureName = dt.Rows[0][1].ToString();
+                manufactureModel.ManufactureEmail = dt.Rows[0][2].ToString();
+                manufactureModel.ManufactureMobile = dt.Rows[0][3].ToString();
+                manufactureModel.ManufactureAddress = dt.Rows[0][4].ToString();
+                manufactureModel.ManufactureZipcode = Convert.ToInt32(dt.Rows[0][5].ToString());
+                manufactureModel.ManufactureCountry = dt.Rows[0][6].ToString();
+
+
+
+                return View(manufactureModel);
+
+            }
+            else
+                return RedirectToAction("Index");
         }
 
         // POST: Manufacture/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(ManufactureModel manufactureModel)
         {
-            try
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                con.Open();
+                string query = "Update Manufacture set ManufactureName=@ManufactureName, ManufactureEmail=@ManufactureEmail, ManufactureMobile=@ManufactureMobile, ManufactureAddress=@ManufactureAddress , ManufactureZipcode=@ManufactureZipcode, ManufactureCountry=@ManufactureCountry where ManufactureId=@ManufactureId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@ManufactureId", manufactureModel.ManufactureId);
+                cmd.Parameters.AddWithValue("@ManufactureName", manufactureModel.ManufactureName);
+                cmd.Parameters.AddWithValue("@ManufactureEmail", manufactureModel.ManufactureEmail);
+                cmd.Parameters.AddWithValue("@ManufactureMobile", manufactureModel.ManufactureMobile);
+                cmd.Parameters.AddWithValue("@ManufactureAddress", manufactureModel.ManufactureAddress);
+                cmd.Parameters.AddWithValue("@ManufactureZipcode", manufactureModel.ManufactureZipcode);
+                cmd.Parameters.AddWithValue("@ManufactureCountry", manufactureModel.ManufactureCountry);
+                cmd.ExecuteNonQuery();
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
         // GET: Manufacture/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            ManufactureModel manufactureModel = new ManufactureModel();
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                string query = "Select * from Manufacture where ManufactureId=@ManufactureId";
+                SqlDataAdapter adp = new SqlDataAdapter(query, con);
+                adp.SelectCommand.Parameters.AddWithValue("@ManufactureId", id);
+                adp.Fill(dt);
+            }
+            if (dt.Rows.Count == 1)
+            {
+                manufactureModel.ManufactureId = Convert.ToInt32(dt.Rows[0][0].ToString());
+                manufactureModel.ManufactureName = dt.Rows[0][1].ToString();
+                manufactureModel.ManufactureEmail = dt.Rows[0][2].ToString();
+                manufactureModel.ManufactureMobile = dt.Rows[0][3].ToString();
+                manufactureModel.ManufactureAddress = dt.Rows[0][4].ToString();
+                manufactureModel.ManufactureZipcode = Convert.ToInt32(dt.Rows[0][5].ToString());
+                manufactureModel.ManufactureCountry = dt.Rows[0][6].ToString();
+
+
+
+                return View(manufactureModel);
+
+            }
+            else
+                return RedirectToAction("Index");
         }
 
         // POST: Manufacture/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                // TODO: Add delete logic here
+                con.Open();
+                string query = "Delete From Manufacture  where ManufactureId=@ManufactureId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@ManufactureId", id);
 
-                return RedirectToAction("Index");
+                cmd.ExecuteNonQuery();
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
     }
 }

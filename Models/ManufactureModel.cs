@@ -14,5 +14,6 @@ namespace MedicalStore.Models
         public string ManufactureAddress { get; set; }
         public int ManufactureZipcode { get; set; }
         public string ManufactureCountry { get; set; }
+        
     }
 }
