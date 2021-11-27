@@ -2245,6 +2245,10 @@
     <Content Include="Views\Type\Create.cshtml" />
     <Content Include="Views\Type\Edit.cshtml" />
     <Content Include="Views\Type\Delete.cshtml" />
+    <Content Include="Views\Manufacture\Create.cshtml" />
+    <Content Include="Views\Manufacture\Delete.cshtml" />
+    <Content Include="Views\Manufacture\Edit.cshtml" />
+    <Content Include="Views\Manufacture\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
