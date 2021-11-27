@@ -1,0 +1,80 @@
+﻿@model MedicalStore.Models.ManufactureModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ManufactureModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ManufactureId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManufactureId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManufactureName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManufactureName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManufactureEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManufactureEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManufactureMobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManufactureMobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManufactureAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManufactureAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManufactureZipcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManufactureZipcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManufactureCountry)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManufactureCountry)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
