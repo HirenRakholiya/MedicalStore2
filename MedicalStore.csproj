@@ -2244,10 +2244,9 @@
     <Content Include="Views\Type\Create.cshtml" />
     <Content Include="Views\Type\Edit.cshtml" />
     <Content Include="Views\Type\Delete.cshtml" />
+    <Content Include="Views\Unit\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Unit\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
